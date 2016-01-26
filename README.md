@@ -1,6 +1,9 @@
 #Learning Python and Django
 ##Version
-1.9.1
+```
+Python 2.7.10 
+Django 1.9.1
+```
 ## Installation and Creating new project
 1. Install [python] (https://www.python.org/download/), [pip] (https://pip.pypa.io/en/stable/) and in the terminal type `pip install Django`
 2.Create a new django project 
