@@ -1,5 +1,6 @@
 #Learning Python and Django
-
+##Version
+1.9.1
 ## Installation and Creating new project
 1. Install [python] (https://www.python.org/download/), [pip] (https://pip.pypa.io/en/stable/) and in the terminal type `pip install Django`
 2.Create a new django project 
@@ -23,11 +24,12 @@ In project_name/webapps folder there are project settings file.
 ```python
 from django.conf.urls import url
 from django.contrib import admin
-
+from django.conf.urls import include
 urlpatterns = [
-url(r'^admin/', admin.site.urls),
-url(r'^application_name/', application_name.urls),
+    url(r'^admin/', admin.site.urls),
+    url(r'^application_name/', include('application_name.urls')),
 ]
+
 ```
 
 ## Create your application routes 
@@ -36,12 +38,32 @@ url(r'^application_name/', application_name.urls),
 
 ```python
 from django.conf.urls import url
-from django.contrib import admin
+from . import views
 
 urlpatterns = [
-url(r'^hello-world$', 'application_name.views.hello_world'),
+    url(r'^hello-world$', views.hello_world, name='hello_world'),
 ]
 ```
+## Add functions in views.py to return static html file
+1. Create a file hello-world.html and put it in a new folder application_name/templates
+2. Add a function `hello_world` to views.py
+```python
+from django.shortcuts import render
 
+#action for 'intro/hello-world' route
+def hello_world(request):
+	#render takes (1) the request, 
+	#(2) the name of the view to generate and 
+	#(3) key-value pair for template views
+	return render(request,'hello-world.html',{})
+```
+## Run server
+Type `python manage.py runserver` to start development server and enter http://127.0.0.1:8000/intro/hello-world to see if the static web page is returned
+
+##Apply changes
+After changes to python files type `python manage.py migrate` before running server. Otherwise you will get an error
+```
+You have unapplied migrations; your app may not work properly until they are applied. Run 'python manage.py migrate' to apply them.
+```
 
 
