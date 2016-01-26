@@ -19,10 +19,22 @@ python manage.py startapp application_name
 
 In project_name/webapps folder there are project settings file.
 
-1. settings.py 
+1. webapps/settings.py 
 	* which contain the project settings.
 	* add your new application to the INSTALLED_APPS configuration
-2. urls.py 
+```python
+# Application definition
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'application_name',
+]
+```
+2. webapps/urls.py 
 	* default configuration for routing Http requests.
 	* add regex rule for your application route "url(r'^application_name/', application_name.urls),". The first parameter is the regex rule and the second is the location which is application_name/urls.py
 ```python
