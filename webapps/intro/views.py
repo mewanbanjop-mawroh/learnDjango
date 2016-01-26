@@ -16,4 +16,4 @@ def hello(request):
 	#retrieves username from request if available in http get parameter
 	if 'username' in request.GET:
 		context['person_name'] = request.GET['username']
-	return render(request,'intro/views/hello-world.html',{})
+	return render(request,'hello.html',context)
