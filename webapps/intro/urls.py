@@ -1,7 +1,12 @@
 from django.conf.urls import url
-from django.contrib import admin
+from . import views
 
 urlpatterns = [
-    url(r'^hello-world$', 'intro.views.hello_world'),
-    url(r'^hello.html$', 'intro.views.hello'),
+    url(r'^hello-world$', views.hello_world, name='hello_world'),
 ]
+
+# --Deprecated-- 
+#from django.conf.urls import url
+# urlpatterns = [
+# url(r'^hello-world$', 'intro.views.hello_world'),
+# ]

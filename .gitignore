@@ -1,3 +1,9 @@
+# Python generated files #
+######################
+*.pyc
+*.sqlite3
+
+
 # OS generated files #
 ######################
 .DS_Store
