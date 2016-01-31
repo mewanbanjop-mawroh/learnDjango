@@ -99,6 +99,21 @@ class TodoItem(models.Model): #inherit from models django orm
     text = models.CharField(max_length=200)
     def __unicode__(self):
         return self.text
-```        
+```       
+## Create actions for todo
+
+1. Import the model in views.py ```from todo.models import *```
+
+2. Add home action
+```python
+from django.shortcuts import render
+
+from todo.models import *
+def home(request):
+    #get all items
+    all_items = TodoItem.objects.all()
+
+    return render(request, 'index.html',{'items':all_items})
+```
 
 
