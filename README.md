@@ -76,10 +76,13 @@ def hello_world(request):
 ## Run server
 Type `python manage.py runserver` to start development server and enter http://127.0.0.1:8000/intro/hello-world to see if the static web page is returned
 
-##Apply changes
+## Apply changes
 After changes to python files type `python manage.py migrate` before running server. Otherwise you will get an error
 ```
 You have unapplied migrations; your app may not work properly until they are applied. Run 'python manage.py migrate' to apply them.
 ```
-
+## Creating a Todo application
+1. Create the app using ```python manage.py startapp application_name```
+2. Add the urls to webapps/urls.py and add to 'todo' to INSTALLED_APPS of settings.py
+3. Create url.py in todo
 
