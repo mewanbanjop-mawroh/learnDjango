@@ -86,3 +86,19 @@ You have unapplied migrations; your app may not work properly until they are app
 2. Add the urls to webapps/urls.py and add to 'todo' to INSTALLED_APPS of settings.py
 3. Create url.py in todo
 
+## Data model
+1. To use python ORM, define simple python classes that inherit django db models class to use the orm features of Django.
+2. Define class for the data you want to store in models.py class or in separate class which you then include.
+3. Django generate id and primary key automatically if we don't specify.
+
+```python
+#models.py class
+from django.db import models
+#Data model for todo item
+class TodoItem(models.Model): #inherit from models django orm
+    text = models.CharField(max_length=200)
+    def __unicode__(self):
+        return self.text
+```        
+
+
