@@ -9,7 +9,7 @@
 <h1>Hello {{person_name}}</h1>
 {%endif%} -->
 
-<form action="/intro/add-todo-item" method="post">
+<form action="/todo/add-todo-item" method="post">
 	Input item: <input type="text" name="todo-item">
 	<input type="submit">
 	{% csrf_token %}
