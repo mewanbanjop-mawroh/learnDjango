@@ -140,4 +140,94 @@ def index(request):
 
 ```
 6. Regex for url with delete ```url(r'^delete-todo-item/(?P<item_id>\d+)$', views.delete_todo_item, name='delete_todo_item'),```
- 
+
+## Add authentication using django's built in  module
+
+1. To INSTALL_APPS of webapps/settings.py add ```django.contrib.auth```
+2. Recommended: configure LOGIN_URL and LOGIN_REDIRECT_URL in settings.py file
+```python
+    #url if login is required
+    LOGIN_URL = '/todo/login'
+    #default url after user logs in
+    LOGIN_REDIRECT_URL = '/todo/'
+```
+3. Urls add additional routes for login and logout use imported django.contrib.auth. For register use our own
+```python
+from django.conf.urls import url
+from . import views
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+    url(r'^index$', views.index, name='index'),
+    url(r'^add-todo-item$', views.add_todo_item, name='add_todo_item'),
+    url(r'^delete-todo-item/(?P<item_id>\d+)$', views.delete_todo_item, name='delete_todo_item'),
+    # Route for built-in authentication with our own custom login page. Url dispatcher will send template_name 
+    # to the django login function
+    url(r'^login$', auth_views.login, {'template_name':'login.html'}, name='login'),
+    # Route to logout a user and send them back to the login page
+    url(r'^logout$', auth_views.logout_then_login, name='logout'),
+    url(r'^register$', views.register, name='register'),
+]
+```
+4. Add user to models
+```python
+# User class for built-in authentication module
+from django.db import models
+
+# User class for built-in authentication module
+from django.db import models
+# User class from django.contrib.auth.models for built-in authentication module
+from django.contrib.auth.models import User
+#Data model for todo item
+class TodoItem(models.Model): #inherit from models django orm
+    text = models.CharField(max_length=200)
+    user = models.ForeignKey(User)
+    # function to generate unicode string
+    def __unicode__(self):
+        return self.text
+    def __str__(self):
+        return self.__unicode__()
+```
+5. Actions using django decorator ```@login_required``` to ensure that the user is authenticated or logged in.
+```python
+#  decorator of django authentication system
+from django.contrib.auth.decorators import login_required
+
+.....
+
+.....
+
+@login_required
+def home(request):
+    # Sets up list of just the logged-in user's items
+    items = Item.objects.filter(user=request.user) 
+    return render(request, 'index.html', {'items' : items})
+
+```
+6. Changes to add_todo_item() and delete_todo_item() actions are 
+
+```python
+
+@login_required
+def add_todo_item(request):
+   .....
+   .....
+    else:
+        new_item = TodoItem(text=request.POST['item'], user=request.user)
+        new_item.save()
+
+    return render(request, 'index.html',{'items':TodoItem.objects.filter(user=request.user), 'errors': errors})
+
+@login_required
+def delete_todo_item(request,item_id):
+    ...
+    ..
+        item_to_delete = TodoItem.objects.get(id = item_id, user=request.user)
+        item_to_delete.delete()
+    ...
+    return render(request, 'index.html',context)
+
+```
+
+
+
