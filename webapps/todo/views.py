@@ -20,4 +20,13 @@ def add_todo_item(request):
 	return render(request, 'index.html',{'items':TodoItem.objects.all(), 'errors': errors})
 
 def delete_todo_item(request,item_id):
-	return render(request, 'index.html',{})
+	errors = []
+	try:
+		item_to_delete = TodoItem.objects.get(id = item_id)
+		item_to_delete.delete()
+	except ObjectDoesNotExist:
+		errors.append('The item did not exist in the todo list.')
+
+    	items = TodoItem.objects.all()
+    	context = {'items':items, 'errors':errors}
+	return render(request, 'index.html',context)

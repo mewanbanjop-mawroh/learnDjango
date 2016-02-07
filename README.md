@@ -116,5 +116,28 @@ def index(request):
     return render(request, 'index.html',{'items':all_items})
 ```
 3. Run ``` python manage.py makemigrations``` then ```python manage.py migrate``` which will generate the db script and then migrate will apply to the database
-4. 
+4. To add item to db 
+```python
+    def add_todo_item(request):
+        new_item = TodoItem(text=request.POST['item'])
+        new_item.save()
+        items = TodoItem.objects.all()
+    return render(request, 'index.html',{'items':items, 'errors': errors})
+```
+5. To delete item to db 
+```python
+    def delete_todo_item(request,item_id):
+    errors = []
+    try:
+        item_to_delete = TodoItem.objects.get(id = item_id)
+        item_to_delete.delete()
+    except ObjectDoesNotExist:
+        errors.append('The item did not exist in the todo list.')
 
+        items = TodoItem.objects.all()
+        context = {'items':items, 'errors':errors}
+    return render(request, 'index.html',context)
+
+```
+6. Regex for url with delete ```url(r'^delete-todo-item/(?P<item_id>\d+)$', views.delete_todo_item, name='delete_todo_item'),```
+ 

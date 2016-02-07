@@ -21,12 +21,12 @@
 <p>
 <ol>
 {% for item in items%}
-<li> <a href="~/delete-todo-item/{{item.id}}">X</a>{{item.text}}</li>	
+<li> <a href="/todo/delete-todo-item/{{item.id}}">X</a>{{item.text}}</li>	
 {% endfor %}
 </ol>
 </p>
 {% endif %}
-<form action="~/add-todo-item" method="post">
+<form action="/todo/add-todo-item" method="post">
 	Input item: <input type="text" name="item">
 	<input type="submit">
 	{% csrf_token %}
