@@ -8,9 +8,26 @@
 <!-- {% if person_name %}
 <h1>Hello {{person_name}}</h1>
 {%endif%} -->
-
-<form action="/todo/add-todo-item" method="post">
-	Input item: <input type="text" name="todo-item">
+{%if errors%}
+<p>
+<ol>
+{% for error in errors%}
+<li> {{error}}</li>	
+{% endfor %}
+</ol>
+</p>
+{% endif %}
+{%if items%}
+<p>
+<ol>
+{% for item in items%}
+<li> <a href="~/delete-todo-item/{{item.id}}">X</a>{{item.text}}</li>	
+{% endfor %}
+</ol>
+</p>
+{% endif %}
+<form action="~/add-todo-item" method="post">
+	Input item: <input type="text" name="item">
 	<input type="submit">
 	{% csrf_token %}
 </form>

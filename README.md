@@ -104,16 +104,17 @@ class TodoItem(models.Model): #inherit from models django orm
 
 1. Import the model in views.py ```from todo.models import *```
 
-2. Add home action
+2. Add index action
 ```python
 from django.shortcuts import render
-
+#import TodoItem model from models.py
 from todo.models import *
-def home(request):
+def index(request):
     #get all items
     all_items = TodoItem.objects.all()
 
     return render(request, 'index.html',{'items':all_items})
 ```
-
+3. Run ``` python manage.py makemigrations``` then ```python manage.py migrate``` which will generate the db script and then migrate will apply to the database
+4. 
 
