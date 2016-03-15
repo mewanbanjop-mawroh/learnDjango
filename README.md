@@ -1,5 +1,5 @@
 #About Repository
-This is a repository for my python and django applications that I am building for my learning as part of one of my web app courses.
+This repository contains my learnings of python and django framework.
 
 
 ## Git aliases and shortcuts
